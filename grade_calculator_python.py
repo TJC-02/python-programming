@@ -30,7 +30,7 @@ elif number_grade >= 83:
 elif number_grade >= 80:
 	final_grade = (f"C,\n"
 	               f"Barely Passed.")
-elif number_grade >= 73:
+elif number_grade >= 68:
     final_grade = (f"D,\n"
                    f"Did not pass.")
 elif number_grade < 68:
