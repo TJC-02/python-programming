@@ -94,7 +94,7 @@ def create_window():
     )
     calculate_button.pack()
     tk.Label(
-        button_frame, text="G U I   L A Y O U T   P R A C T I C E",
+        button_frame, text="Developed for educational purposes",
         font=("Arial", 8), fg="#a9bc99", bg="#142e26",
     ).pack(pady=(16, 0))
     year_entry.focus_set()
