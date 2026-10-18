@@ -46,7 +46,7 @@ The program uses Python's built-in `smtplib`, `ssl`, and `email.message` modules
 
 The password is read by `password = os.getenv("SMTP_PASSWORD", "")` in `send_zodiac_email`. Do not paste it into the source code or commit it to GitHub. Set variables through your IDE's private run configuration or your operating system's environment settings, then restart the application. Recipients do not need the sender's password. Sending runs in the background to keep the window responsive.
 
-![Running Chinese Zodiac Calculator GUI](screenshots/Screenshot 2026-10-18 160403.png)
+![Running Chinese Zodiac Calculator GUI](screenshots/chinese_zodiac_calculator.png)
 
 ## Add more applications
 
