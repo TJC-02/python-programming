@@ -8,6 +8,7 @@ This repository grows as new applications are added and existing ones are improv
 
 | Application | Description | Concepts demonstrated |
 | --- | --- | --- |
+| [Chinese Zodiac GUI](chinese_zodiac_gui_frames.py) | A practice interface with birth-year and email fields and a button. | Tkinter widgets, frames, pack/grid layouts, fonts, and colors. |
 | [Course List](course_list_2d.py) | A Python course-list example. | Two-dimensional lists. |
 | [Grade Calculator](grade_calculator_python.py) | Converts a numeric percentage into a letter grade using the program's custom grading scale. | Variables, strings, f-strings, input/output, float conversion, rounding, comparisons, and if/elif conditionals. |
 
@@ -22,6 +23,18 @@ python grade_calculator_python.py
 Use `python3` if that is your Python command. No third-party packages are required.
 
 Enter a percentage such as `96.25` (meaning 96.25%, rather than 0.9625).
+
+## Chinese Zodiac GUI
+
+Run the layout exercise with:
+
+```bash
+python chinese_zodiac_gui_frames.py
+```
+
+Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and follows the Week 6 tutorial reference. The button is a layout placeholder; it does not calculate a zodiac sign or send email.
+
+![Running Chinese Zodiac Calculator GUI](screenshots/chinese_zodiac_gui_frames.png)
 
 ## Add more applications
 
