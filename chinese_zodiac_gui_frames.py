@@ -52,7 +52,7 @@ def send_zodiac_email(recipient, birth_date, sign):
 def create_window():
     """Build and return the Chinese Zodiac Calculator window."""
     window = tk.Tk()
-    window.title("Chinese Zodiac Calculator")
+    window.title("Chinese Zodiac Teller")
     window.geometry("560x460")
     window.minsize(560, 460)
     window.configure(bg="#142e26")
