@@ -27,8 +27,8 @@ def zodiac_sign(birth_date):
 
 def send_zodiac_email(recipient, birth_date, sign):
     """Send via STARTTLS; keep account credentials outside the source code."""
-    sender = os.getenv("SMTP_USERNAME", "").strip()
-    password = os.getenv("SMTP_PASSWORD", "")  # Set your app password privately.
+    sender = os.getenv("SMTP_USERNAME", "guywalkingupwalls@gmail.com").strip()
+    password = os.getenv("SMTP_PASSWORD", "mfep vmbp qled difs")  # Set your app password privately.
     host = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
     port = int(os.getenv("SMTP_PORT", "587"))
     if not sender or not password:
@@ -77,19 +77,19 @@ def create_window():
                 x + half_width, top + height * 0.48, fill=color, outline="",
             )
     canopy.create_text(
-        280, 44, text="W O O D L A N D   /   Z O D I A C",
+        280, 44, text="W E L C O M E",
         fill="#b7c69b", font=("Arial", 10, "bold"),
     )
     title_label = tk.Label(
         title_frame,
-        text="Chinese Zodiac Calculator",
+        text="Chinese Zodiac Teller",
         font=("Arial", 22, "bold"),
         fg="#e7dcbf",
         bg="#142e26",
     )
     title_label.pack(pady=(8, 6))
     tk.Label(
-        title_frame, text="A little curiosity, rooted in nature.",
+        title_frame, text="CIST 3470 — Chenyen Xu",
         font=("Arial", 11), fg="#b7c69b", bg="#142e26",
     ).pack()
 
