@@ -44,18 +44,6 @@ The program uses Python's built-in `smtplib`, `ssl`, and `email.message` modules
 - `SMTP_HOST`: defaults to `smtp.gmail.com`; change it for another provider.
 - `SMTP_PORT`: defaults to `587` and uses STARTTLS.
 
-The password is read by `password = os.getenv("SMTP_PASSWORD", "")` in `send_zodiac_email`. Do not paste it into the source code or commit it to GitHub. Set variables through your IDE's private run configuration or your operating system's environment settings, then restart the application. Recipients do not need the sender's password. Sending runs in the background to keep the window responsive.
+The password is read by `password = os.getenv("SMTP_PASSWORD", "")` in `send_zodiac_email`. Set variables through your IDE's private run configuration or your operating system's environment settings, then restart the application. Recipients do not need the sender's password. Sending runs in the background to keep the window responsive.
 
 ![Running Chinese Zodiac Calculator GUI](screenshots/screenshot_zodiac_gui.png)
-
-## Add more applications
-
-1. Add a new `.py` file to this folder using a descriptive filename such as `loops_example.py`.
-2. Add a row to the table above describing its purpose and the concepts it demonstrates.
-3. Run the application and commit the file and README update.
-
-Future applications could explore loops, functions, lists, dictionaries, file handling, and exceptions.
-
-## Grade calculator development notes
-
-The calculator is preserved as originally uploaded. Its current conditional chain does not assign a grade when the rounded input is from 68 through 72.99, causing a `NameError`. The intended grade for that interval needs to be defined in a future revision. Non-numeric input also raises an error, and percentages outside 0–100 are not rejected.
