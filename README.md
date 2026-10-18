@@ -8,7 +8,7 @@ This repository grows as new applications are added and existing ones are improv
 
 | Application | Description | Concepts demonstrated |
 | --- | --- | --- |
-| [Chinese Zodiac GUI](chinese_zodiac_gui_frames.py) | A practice interface with birth-year and email fields and a button. | Tkinter widgets, frames, pack/grid layouts, fonts, and colors. |
+| [Chinese Zodiac GUI](chinese_zodiac_gui_frames.py) | Calculates a zodiac animal and optionally emails the result. | Tkinter widgets, frames, pack/grid layouts, fonts, and colors. |
 | [Course List](course_list_2d.py) | A Python course-list example. | Two-dimensional lists. |
 | [Grade Calculator](grade_calculator_python.py) | Converts a numeric percentage into a letter grade using the program's custom grading scale. | Variables, strings, f-strings, input/output, float conversion, rounding, comparisons, and if/elif conditionals. |
 
@@ -26,13 +26,24 @@ Enter a percentage such as `96.25` (meaning 96.25%, rather than 0.9625).
 
 ## Chinese Zodiac GUI
 
-Run the layout exercise with:
+Run the application with:
 
 ```bash
 python chinese_zodiac_gui_frames.py
 ```
 
-Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and adapts the Week 6 tutorial layout with a forest palette and evergreen silhouettes. The button is a layout placeholder; it does not calculate a zodiac sign or send email.
+Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and adapts the Week 6 tutorial layout with a forest palette and evergreen silhouettes. The button calculates the zodiac animal and emails it if an email address is entered. Leave the email field blank to calculate only. The calculation uses calendar years; birthdays before Chinese New Year may belong to the previous zodiac year.
+
+### Email setup
+
+The program uses Python's built-in `smtplib`, `ssl`, and `email.message` modules. Set these environment variables privately before launching it:
+
+- `SMTP_USERNAME`: your sending account's email address.
+- `SMTP_PASSWORD`: your sending account's app-specific password, when required by your provider.
+- `SMTP_HOST`: defaults to `smtp.gmail.com`; change it for another provider.
+- `SMTP_PORT`: defaults to `587` and uses STARTTLS.
+
+The password is read by `password = os.getenv("SMTP_PASSWORD", "")` in `send_zodiac_email`. Do not paste it into the source code or commit it to GitHub. Set variables through your IDE's private run configuration or your operating system's environment settings, then restart the application. Recipients do not need the sender's password. Sending runs in the background to keep the window responsive.
 
 ![Running Chinese Zodiac Calculator GUI](screenshots/chinese_zodiac_gui_frames.png)
 
