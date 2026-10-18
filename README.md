@@ -32,7 +32,7 @@ Run the layout exercise with:
 python chinese_zodiac_gui_frames.py
 ```
 
-Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and follows the Week 6 tutorial reference. The button is a layout placeholder; it does not calculate a zodiac sign or send email.
+Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and adapts the Week 6 tutorial layout with a forest palette and evergreen silhouettes. The button is a layout placeholder; it does not calculate a zodiac sign or send email.
 
 ![Running Chinese Zodiac Calculator GUI](screenshots/chinese_zodiac_gui_frames.png)
 
