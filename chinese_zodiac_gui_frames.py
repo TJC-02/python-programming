@@ -10,15 +10,22 @@ from email.message import EmailMessage
 import tkinter as tk
 from tkinter import messagebox
 
+from lunardate import LunarDate
 
-def zodiac_sign(year):
-    """Return the traditional year-cycle animal (using the calendar year)."""
+
+def zodiac_sign(birth_date):
+    """Return the animal for the Chinese lunar year containing birth_date."""
+    if not date(1900, 1, 31) <= birth_date <= date(2099, 12, 31):
+        raise ValueError("Supported birth dates are 1900-01-31 through 2099-12-31.")
+    lunar_year = LunarDate.fromSolarDate(
+        birth_date.year, birth_date.month, birth_date.day
+    ).year
     animals = ("Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
                "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig")
-    return animals[(year - 4) % 12]
+    return animals[(lunar_year - 4) % 12]
 
 
-def send_zodiac_email(recipient, year, sign):
+def send_zodiac_email(recipient, birth_date, sign):
     """Send via STARTTLS; keep account credentials outside the source code."""
     sender = os.getenv("SMTP_USERNAME", "").strip()
     password = os.getenv("SMTP_PASSWORD", "")  # Set your app password privately.
@@ -31,9 +38,8 @@ def send_zodiac_email(recipient, year, sign):
     message["To"] = recipient
     message["Subject"] = "Your Chinese Zodiac Sign"
     message.set_content(
-        f"For birth year {year}, your Chinese zodiac animal is the {sign}.\n\n"
-        "This educational calculator uses calendar years; birthdays before "
-        "Chinese New Year may belong to the previous zodiac year."
+        f"For birth date {birth_date.isoformat()}, your Chinese zodiac animal "
+        f"is the {sign}.\nCalculated using the Chinese lunar calendar."
     )
     with smtplib.SMTP(host, port, timeout=20) as server:
         server.starttls(context=ssl.create_default_context())
@@ -47,8 +53,8 @@ def create_window():
     """Build and return the Chinese Zodiac Calculator window."""
     window = tk.Tk()
     window.title("Chinese Zodiac Calculator")
-    window.geometry("560x440")
-    window.minsize(560, 440)
+    window.geometry("560x460")
+    window.minsize(560, 460)
     window.configure(bg="#142e26")
 
     # Pack the three frames vertically in the main window.
@@ -91,7 +97,7 @@ def create_window():
     input_frame = tk.Frame(window, bg="#142e26")
     input_frame.pack(pady=8)
     year_label = tk.Label(
-        input_frame, text="Birth Year:", font=("Arial", 11), fg="#e7dcbf", bg="#142e26"
+        input_frame, text="Birth Date:", font=("Arial", 11), fg="#e7dcbf", bg="#142e26"
     )
     year_label.grid(row=0, column=0, padx=10, pady=10, sticky="e")
     year_entry = tk.Entry(input_frame, width=25, font=("Arial", 12),
@@ -101,16 +107,21 @@ def create_window():
         selectforeground="#ffffff")
     year_entry.grid(row=0, column=1, padx=10, pady=10)
 
+    tk.Label(
+        input_frame, text="YYYY-MM-DD", font=("Arial", 9),
+        fg="#b7c69b", bg="#142e26",
+    ).grid(row=1, column=1, padx=10, sticky="w")
+
     email_label = tk.Label(
         input_frame, text="Email Address:", font=("Arial", 11), fg="#e7dcbf", bg="#142e26"
     )
-    email_label.grid(row=1, column=0, padx=10, pady=10, sticky="e")
+    email_label.grid(row=2, column=0, padx=10, pady=10, sticky="e")
     email_entry = tk.Entry(input_frame, width=25, font=("Arial", 12),
         bg="#edf0df", fg="#203b2e", insertbackground="#203b2e",
         relief="flat", highlightthickness=2, highlightbackground="#526d4b",
         highlightcolor="#b7c69b", selectbackground="#526d4b",
         selectforeground="#ffffff")
-    email_entry.grid(row=1, column=1, padx=10, pady=10)
+    email_entry.grid(row=2, column=1, padx=10, pady=10)
 
     button_frame = tk.Frame(window, bg="#142e26")
     button_frame.pack(pady=(20, 0))
@@ -146,20 +157,25 @@ def create_window():
 
     def calculate():
         try:
-            year = int(year_entry.get().strip())
-            if not 1 <= year <= date.today().year:
-                raise ValueError
+            birth_date = date.fromisoformat(year_entry.get().strip())
+            if birth_date > date.today():
+                raise ValueError("Birth date cannot be in the future.")
+            sign = zodiac_sign(birth_date)
         except ValueError:
-            messagebox.showerror("Invalid year", "Enter a birth year from 1 through the current year.", parent=window)
+            messagebox.showerror(
+                "Invalid birth date",
+                "Enter a valid birth date as YYYY-MM-DD, from 1900-01-31 "
+                "through today (latest supported date: 2099-12-31).",
+                parent=window,
+            )
             return
         recipient = email_entry.get().strip()
         if recipient and (recipient.count("@") != 1 or any(c.isspace() for c in recipient)
                           or not all(recipient.split("@"))):
             messagebox.showerror("Invalid email", "Enter a valid email address or leave it blank.", parent=window)
             return
-        sign = zodiac_sign(year)
         messagebox.showinfo(
-            "Your zodiac", f"{year}: {sign}\n\nUses calendar years; birthdays before Chinese New Year may differ.",
+            "Your zodiac", f"{birth_date.isoformat()}: {sign}",
             parent=window,
         )
         if not recipient:
@@ -168,7 +184,7 @@ def create_window():
 
         def deliver():
             try:
-                send_zodiac_email(recipient, year, sign)
+                send_zodiac_email(recipient, birth_date, sign)
             except ValueError:
                 results.put("Check SMTP_USERNAME, SMTP_PASSWORD, and SMTP_PORT in your environment settings.")
             except smtplib.SMTPAuthenticationError:

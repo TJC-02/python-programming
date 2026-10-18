@@ -20,7 +20,7 @@ Install Python 3, then run this command from the repository root:
 python grade_calculator_python.py
 ```
 
-Use `python3` if that is your Python command. No third-party packages are required.
+Use `python3` if that is your Python command. The grade calculator and course list require no third-party packages.
 
 Enter a percentage such as `96.25` (meaning 96.25%, rather than 0.9625).
 
@@ -29,10 +29,11 @@ Enter a percentage such as `96.25` (meaning 96.25%, rather than 0.9625).
 Run the application with:
 
 ```bash
+python -m pip install -r requirements.txt
 python chinese_zodiac_gui_frames.py
 ```
 
-Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and adapts the Week 6 tutorial layout with a forest palette and evergreen silhouettes. The button calculates the zodiac animal and emails it if an email address is entered. Leave the email field blank to calculate only. The calculation uses calendar years; birthdays before Chinese New Year may belong to the previous zodiac year.
+Requires Tkinter and a graphical desktop. On Debian/Ubuntu, install `python3-tk` if Tkinter is missing. The interface uses three frames (title, input, and button) and adapts the Week 6 tutorial layout with a forest palette and evergreen silhouettes. The button calculates the zodiac animal and emails it if an email address is entered. Leave the email field blank to calculate only. Enter your full Gregorian birth date as `YYYY-MM-DD`. The `lunardate` library converts it to the Chinese lunar calendar so the animal changes on Chinese New Year. Supported birth dates start at 1900-01-31 and end at today (or 2099-12-31, whichever is earlier).
 
 ### Email setup
 
